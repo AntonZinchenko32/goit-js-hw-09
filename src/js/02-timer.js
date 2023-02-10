@@ -4,9 +4,15 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
 
 const startBtn = document.querySelector('[data-start]');
-const values = document.querySelectorAll('.value');
 
-let timeDifference;
+const days = document.querySelector('[data-day]');
+const hours = document.querySelector('[data-hours]');
+const minutes = document.querySelector('[data-minutes]');
+const seconds = document.querySelector('[data-seconds]');
+
+let unixTimeDifference;
+let timerId;
+let convertedTimeDifference;
 
 const options = {
   enableTime: true,
@@ -21,14 +27,15 @@ const options = {
         
         unixTimeDifference = selectedUnixTime - currentUnixTime;
         
-        timeDifference = convertMs(unixTimeDifference);
-        
         startBtn.removeAttribute("disabled");
   },
 };
 
 flatpickr("#datetime-picker", options);
 startBtn.addEventListener('click', startTimer);
+
+
+
 
 
 function convertMs(ms) {
@@ -52,5 +59,12 @@ function convertMs(ms) {
 
 
 function startTimer() {
-    console.log(values[0]);
+    timerId = setInterval(() => {
+        unixTimeDifference -= 1000;
+        convertedTimeDifference = convertMs(unixTimeDifference);
+}, 1000);
+}
+
+function addLeadingZero(value) {
+    
 }
