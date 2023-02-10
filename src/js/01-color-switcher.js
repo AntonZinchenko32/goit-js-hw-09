@@ -7,6 +7,7 @@ const stopBtn = document.querySelector("[data-stop]");
 const disableBtn = (btn) => btn.setAttribute("disabled", '');
 const enableBtn = (btn) => btn.removeAttribute("disabled");
 
+let timerId = null;
 
 startBtn.addEventListener("click", () => {
     disableBtn(startBtn);
