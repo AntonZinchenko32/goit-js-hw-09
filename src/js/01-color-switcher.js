@@ -1,27 +1,29 @@
-console.log("test122");
+console.log("test");
 
 const body = document.querySelector("body");
 const startBtn = document.querySelector("[data-start]");
 const stopBtn = document.querySelector("[data-stop]");
 
-changeBtnState(stopBtn);
+const disableBtn = (btn) => btn.setAttribute("disabled", '');
+const enableBtn = (btn) => btn.removeAttribute("disabled");
+
 
 startBtn.addEventListener("click", () => {
-    changeBtnState(startBtn);
-    
+    disableBtn(startBtn);
     body.style.backgroundColor = getRandomHexColor();
   
     timerId = setInterval(() => {
       body.style.backgroundColor = getRandomHexColor();
-  }, 1000);
-    changeBtnState(stopBtn);
+    }, 1000);
+    
+    enableBtn(stopBtn);
 });
 
 
 stopBtn.addEventListener("click", () => {
     clearInterval(timerId);
-    changeBtnState(stopBtn);
-    changeBtnState(startBtn);
+    disableBtn(stopBtn);
+    enableBtn(startBtn);
 });
 
 
@@ -29,7 +31,3 @@ function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
 
-function changeBtnState(btn) {
-    if (btn.hasAttribute("disabled")) btn.removeAttribute("disabled")
-    else btn.setAttribute("disabled", '');
-}
