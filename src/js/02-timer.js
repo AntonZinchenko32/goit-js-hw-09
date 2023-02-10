@@ -1,4 +1,4 @@
-console.log("test13499");
+console.log("test");
 
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
@@ -6,22 +6,30 @@ import "flatpickr/dist/flatpickr.min.css";
 const startBtn = document.querySelector('[data-start]');
 const values = document.querySelectorAll('.value');
 
+let timeDifference;
+
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
     onClose(selectedDates) {
-      const currentUnixTime = new Date().getTime();
-      const unixTimeDifference = selectedDates[0].getTime() - currentUnixTime;
-        convertMs(unixTimeDifference);
+        const currentUnixTime = new Date().getTime();
+        const selectedUnixTime = selectedDates[0].getTime();
+        
+        if (selectedUnixTime < currentUnixTime) alert("Please choose a date in the future");
+        
+        unixTimeDifference = selectedUnixTime - currentUnixTime;
+        
+        timeDifference = convertMs(unixTimeDifference);
+        
+        startBtn.removeAttribute("disabled");
   },
 };
 
 flatpickr("#datetime-picker", options);
 startBtn.addEventListener('click', startTimer);
 
-console.log(typeof(options.defaultDate))
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -43,7 +51,6 @@ function convertMs(ms) {
 }
 
 
-
-function startTimer(event) {
-
+function startTimer() {
+    console.log(values[0]);
 }
