@@ -17,3 +17,21 @@ img {
   max-width: 100%;
 }
 
+.timer {
+  display: flex;
+  margin-top: 30px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-right: 10px;
+}
+.value {
+  font-size: 36px;
+}
+.label {
+  text-transform: uppercase;
+}
+
