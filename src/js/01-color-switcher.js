@@ -1,4 +1,3 @@
-console.log("test");
 
 const body = document.querySelector("body");
 const startBtn = document.querySelector("[data-start]");
