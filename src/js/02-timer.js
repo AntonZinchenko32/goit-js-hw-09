@@ -1,18 +1,19 @@
-console.log("test");
+console.log("it's working12");
 
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
 
 const startBtn = document.querySelector('[data-start]');
 
-const days = document.querySelector('[data-day]');
+const days = document.querySelector('[data-days]');
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
 
+
 let unixTimeDifference;
 let timerId;
-let convertedTimeDifference;
+let timeDifferenceConverted;
 
 const options = {
   enableTime: true,
@@ -61,10 +62,30 @@ function convertMs(ms) {
 function startTimer() {
     timerId = setInterval(() => {
         unixTimeDifference -= 1000;
-        convertedTimeDifference = convertMs(unixTimeDifference);
+        timeDifferenceConverted = convertMs(unixTimeDifference);
+        
+        days.textContent = timeDifferenceConverted.days.toString();
+        hours.textContent = addLeadingZero(timeDifferenceConverted.hours.toString());
+        minutes.textContent = addLeadingZero(timeDifferenceConverted.minutes.toString());
+        seconds.textContent = addLeadingZero(timeDifferenceConverted.seconds.toString());
 }, 1000);
 }
 
-function addLeadingZero(value) {
+
+// Функця, що спрацьовує при натисканні будь якої клавіши на клавіатурі
+    const buttonPressHandler = (event) => {
+        if (event.key === "Escape") {
+            clearInterval(timerId);
+            document.removeEventListener("keydown", buttonPressHandler);
+        }
+    }
+
+// Додаю прослуховування натискання клавіш, на клавіатурі
+document.addEventListener("keydown", buttonPressHandler);
     
+
+
+
+function addLeadingZero(value) {
+    return value.padStart(2, "0");
 }
