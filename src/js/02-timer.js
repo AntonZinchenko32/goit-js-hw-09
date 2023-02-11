@@ -23,7 +23,7 @@ const options = {
         const currentUnixTime = new Date().getTime();
         const selectedUnixTime = selectedDates[0].getTime();
         
-        if (selectedUnixTime < currentUnixTime) {
+        if (selectedUnixTime <= currentUnixTime) {
             alert("Please choose a date in the future");
             flatpickr("#datetime-picker", options);
         }
