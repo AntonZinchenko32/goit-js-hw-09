@@ -89,7 +89,7 @@ function setValues(unixTime) {
 }
 
 function addLeadingZero(value) {
-    stringValue = value.toString();
+    const stringValue = value.toString();
     if (stringValue.length <= 2) return stringValue.padStart(2, "0");
     else return stringValue;
 }
