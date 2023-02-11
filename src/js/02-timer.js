@@ -68,7 +68,7 @@ function timer() {
         
         unixTimeDifference -= 1000;
         
-        if (unixTimeDifference <= 1000) clearInterval(timerId);
+        if (unixTimeDifference < 1000) clearInterval(timerId);
 
         setValues(unixTimeDifference);
 }, 1000);
