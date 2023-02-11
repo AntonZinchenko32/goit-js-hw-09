@@ -30,8 +30,6 @@ const options = {
         else {
             unixTimeDifference = selectedUnixTime - currentUnixTime;
             startBtn.removeAttribute("disabled");
-            // set Values
-            setValues(unixTimeDifference);
         }
   },
 };
@@ -63,6 +61,9 @@ function convertMs(ms) {
 function timer() {
     startBtn.setAttribute("disabled", '');
     input.setAttribute("disabled", '');
+
+    // set Values
+    setValues(unixTimeDifference);
 
     timerId = setInterval(() => {
         
