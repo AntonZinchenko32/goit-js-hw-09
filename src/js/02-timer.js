@@ -2,13 +2,13 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
 
+const input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
 
 const days = document.querySelector('[data-days]');
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector('[data-seconds]');
-
 
 let unixTimeDifference;
 let timerId;
@@ -20,22 +20,23 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
     onClose(selectedDates) {
+
         const currentUnixTime = new Date().getTime();
         const selectedUnixTime = selectedDates[0].getTime();
         
-        if (selectedUnixTime < currentUnixTime) alert("Please choose a date in the future");
-        
-        unixTimeDifference = selectedUnixTime - currentUnixTime;
-        
-        startBtn.removeAttribute("disabled");
+        if (selectedUnixTime < currentUnixTime) {
+            alert("Please choose a date in the future");
+            flatpickr("#datetime-picker", options);
+        }
+        else {
+            unixTimeDifference = selectedUnixTime - currentUnixTime;
+            startBtn.removeAttribute("disabled");
+        }
   },
 };
 
 flatpickr("#datetime-picker", options);
 startBtn.addEventListener('click', timer);
-
-
-
 
 
 function convertMs(ms) {
@@ -59,6 +60,8 @@ function convertMs(ms) {
 
 
 function timer() {
+    startBtn.setAttribute("disabled", '');
+    input.setAttribute("disabled", '');
     timerId = setInterval(() => {
         
         unixTimeDifference -= 1000;
@@ -73,7 +76,6 @@ function timer() {
         seconds.textContent = addLeadingZero(timeDifferenceConverted.seconds.toString());
 }, 1000);
 }
-
 
 
 function addLeadingZero(value) {
