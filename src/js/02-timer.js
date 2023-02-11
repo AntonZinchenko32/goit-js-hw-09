@@ -1,4 +1,3 @@
-console.log("it's working12");
 
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
@@ -33,7 +32,7 @@ const options = {
 };
 
 flatpickr("#datetime-picker", options);
-startBtn.addEventListener('click', startTimer);
+startBtn.addEventListener('click', timer);
 
 
 
@@ -59,10 +58,14 @@ function convertMs(ms) {
 }
 
 
-function startTimer() {
+function timer() {
     timerId = setInterval(() => {
+        
         unixTimeDifference -= 1000;
+        
         timeDifferenceConverted = convertMs(unixTimeDifference);
+        
+        if (timeDifferenceConverted.seconds === 0) clearInterval(timerId);
         
         days.textContent = timeDifferenceConverted.days.toString();
         hours.textContent = addLeadingZero(timeDifferenceConverted.hours.toString());
@@ -70,19 +73,6 @@ function startTimer() {
         seconds.textContent = addLeadingZero(timeDifferenceConverted.seconds.toString());
 }, 1000);
 }
-
-
-// Функця, що спрацьовує при натисканні будь якої клавіши на клавіатурі
-    const buttonPressHandler = (event) => {
-        if (event.key === "Escape") {
-            clearInterval(timerId);
-            document.removeEventListener("keydown", buttonPressHandler);
-        }
-    }
-
-// Додаю прослуховування натискання клавіш, на клавіатурі
-document.addEventListener("keydown", buttonPressHandler);
-    
 
 
 
