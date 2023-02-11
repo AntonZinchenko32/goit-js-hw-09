@@ -1,4 +1,4 @@
-console.log("test");
+
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
 
@@ -71,7 +71,6 @@ function timer() {
         if (unixTimeDifference <= 1000) clearInterval(timerId);
 
         setValues(unixTimeDifference);
-        console.log("проход");
 }, 1000);
 }
 
