@@ -1,18 +1,17 @@
-
+console.log("test");
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css"; 
 
 const input = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
 
-const days = document.querySelector('[data-days]');
-const hours = document.querySelector('[data-hours]');
-const minutes = document.querySelector('[data-minutes]');
-const seconds = document.querySelector('[data-seconds]');
+const daysValue = document.querySelector('[data-days]');
+const hoursValue = document.querySelector('[data-hours]');
+const minutesValue = document.querySelector('[data-minutes]');
+const secondsValue = document.querySelector('[data-seconds]');
 
 let unixTimeDifference;
 let timerId;
-let timeDifferenceConverted;
 
 const options = {
   enableTime: true,
@@ -31,6 +30,8 @@ const options = {
         else {
             unixTimeDifference = selectedUnixTime - currentUnixTime;
             startBtn.removeAttribute("disabled");
+            // set Values
+            setValues(unixTimeDifference);
         }
   },
 };
@@ -62,22 +63,33 @@ function convertMs(ms) {
 function timer() {
     startBtn.setAttribute("disabled", '');
     input.setAttribute("disabled", '');
+
     timerId = setInterval(() => {
         
         unixTimeDifference -= 1000;
         
-        timeDifferenceConverted = convertMs(unixTimeDifference);
-        
-        if (timeDifferenceConverted.seconds === 0) clearInterval(timerId);
-        
-        days.textContent = timeDifferenceConverted.days.toString();
-        hours.textContent = addLeadingZero(timeDifferenceConverted.hours.toString());
-        minutes.textContent = addLeadingZero(timeDifferenceConverted.minutes.toString());
-        seconds.textContent = addLeadingZero(timeDifferenceConverted.seconds.toString());
+        if (unixTimeDifference <= 1000) clearInterval(timerId);
+
+        setValues(unixTimeDifference);
+        console.log("проход");
 }, 1000);
 }
 
 
+function setValues(unixTime) {
+        
+    const timeDifferenceConverted = convertMs(unixTime);
+        
+    const { days, hours, minutes, seconds } = timeDifferenceConverted;
+
+    daysValue.textContent = addLeadingZero(days);
+    hoursValue.textContent = addLeadingZero(hours);
+    minutesValue.textContent = addLeadingZero(minutes);
+    secondsValue.textContent = addLeadingZero(seconds);
+}
+
 function addLeadingZero(value) {
-    return value.padStart(2, "0");
+    stringValue = value.toString();
+    if (stringValue.length <= 2) return stringValue.padStart(2, "0");
+    else return stringValue;
 }
