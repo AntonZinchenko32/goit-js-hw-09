@@ -7,19 +7,17 @@ form.addEventListener("submit", handleSubmit);
 function handleSubmit(event) {
   event.preventDefault();
   
-  let {
-    elements: { delay, step, amount }
-  } = event.currentTarget;
-
-  delay = Number(delay.value);
-  step = Number(step.value);
-  amount = Number(amount.value);
+  // Забираємо дані з інпутів і перетворюємо їх на числа
+  let inputValues = { delay: "", step: "", amount: "" };
+  for (const key in inputValues) {
+    inputValues[key] = Number(event.currentTarget.elements[key].value);
+  }
 
   // Цикл створення промісів основуючись на введенних даних 
-  let initialDelay = delay;
-  for (let i = 1; i <= amount; i++) {
+  let totalDelay = inputValues.delay;
+  for (let i = 1; i <= inputValues.amount; i++) {
     
-    createPromise(i, initialDelay)
+    createPromise(i, totalDelay)
   
       .then(({ position, delay }) => {
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -29,7 +27,7 @@ function handleSubmit(event) {
       });
       
     
-    initialDelay += step;
+    totalDelay += inputValues.step;
   }
 }
 
