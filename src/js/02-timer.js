@@ -18,14 +18,14 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-    onClose(selectedDates) {
+    onClose([selectedDates]) {
 
-        const currentUnixTime = new Date().getTime();
-        const selectedUnixTime = selectedDates[0].getTime();
+        const currentUnixTime = Date.now();
+        const selectedUnixTime = selectedDates.getTime();
         
         if (selectedUnixTime <= currentUnixTime) {
             alert("Please choose a date in the future");
-            flatpickr("#datetime-picker", options);
+            startBtn.setAttribute("disabled", '');
         }
         else {
             unixTimeDifference = selectedUnixTime - currentUnixTime;
@@ -89,7 +89,5 @@ function setValues(unixTime) {
 }
 
 function addLeadingZero(value) {
-    const stringValue = value.toString();
-    if (stringValue.length <= 2) return stringValue.padStart(2, "0");
-    else return stringValue;
+    return value.toString().padStart(2, "0");
 }
