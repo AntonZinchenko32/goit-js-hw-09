@@ -1,5 +1,3 @@
-console.log("test12991");
-
 const form = document.querySelector('.form');
 
 
@@ -36,6 +34,7 @@ function handleSubmit(event) {
 }
 
 function createPromise(position, delay) {
+  
   const shouldResolve = Math.random() > 0.3;
   
   return new Promise((resolve, reject) => {
